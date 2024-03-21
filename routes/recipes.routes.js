@@ -19,9 +19,9 @@ const data = [
 
 
 // Post data
-router.post("", addRecipe);
+router.post("/", addRecipe);
 
-router.get("", getRecipes);
+router.get("/", getRecipes);
 
 router.get("/:id", getRecipe);
 
