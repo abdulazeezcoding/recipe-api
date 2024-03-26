@@ -6,7 +6,7 @@ export const addRecipe = async (req, res, next) => {
     console.log(req.file);
     const createResult = await RecipeModel.create({
       ...req.body,
-      image:req.file.filename
+      image : req.file.filename
     });
     // Return response
     res.status(201).json(createResult);
