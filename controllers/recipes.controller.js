@@ -3,9 +3,13 @@ import { RecipeModel } from "../models/recipe.js";
 export const addRecipe = async (req, res, next) => {
   try {
     // Add Recipe to the database
-    const createResult = await RecipeModel.create(req.body);
+    console.log(req.file);
+    const createResult = await RecipeModel.create({
+      ...req.body,
+      image:req.file.filename
+    });
     // Return response
-    res.json({ createResult });
+    res.status(201).json(createResult);
   } catch (error) {
     // Forward to express error handler
     next(error);
@@ -23,11 +27,11 @@ export const getRecipes = async (req, res, next) => {
 
 export const getRecipe = async (req, res, next) => {
     try {
-        const id = req.params._id;
+        const id = req.params.id;
         const findByIdResult = await RecipeModel.findById(id);
         if (findByIdResult === null) {
            return res.status(404).json({
-                message: `Recipe with ObjectId: ${req.params._id} Not Found!`
+                message: `Recipe with ObjectId: ${req.params.id} Not Found!`
             });
         }
         res.status(200).json(findByIdResult); 
